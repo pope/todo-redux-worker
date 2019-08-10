@@ -4,7 +4,12 @@
   "private": true,
   "main": "index.js",
   "scripts": {
-    "dev": "es-dev-server",
+    "dev": "concurrently npm:serve npm:watch:*",
+    "build": "npm run build:rollup",
+    "build:rollup": "rollup -c",
+    "watch:rollup": "rollup -c --no-watch.clearScreen",
+    "watch:tsc": "tsc --noEmit --watch --preserveWatchOutput --pretty",
+    "serve": "es-dev-server",
     "lint": "tsc --noEmit && eslint \"*/**/*.{js,ts}\" --quiet --fix",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
