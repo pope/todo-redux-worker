@@ -2,7 +2,7 @@ import {
     ActionTypes,
     AddTodoAction,
     ClearCompletedAction,
-    CompleteAllTodosAction,
+    ToggleAllTodosAction,
     DeleteTodoAction,
     EditTodoAction,
     SetVisibilityFilterAction,
@@ -57,11 +57,11 @@ export function toggleTodo(id: string): ToggleTodoAction {
 }
 
 /**
- * Creates an Action to mark all TODOs as completed.
+ * Creates an Action to toggle all TODOs as completed or not.
  */
-export function completeAllTodos(): CompleteAllTodosAction {
+export function toggleAllTodos(): ToggleAllTodosAction {
     return {
-        type: ActionTypes.COMPLETE_ALL_TODOS,
+        type: ActionTypes.TOGGLE_ALL_TODOS,
     };
 }
 

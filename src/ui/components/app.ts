@@ -2,7 +2,7 @@ import { html, TemplateResult } from 'lit-html';
 import {
     addTodo,
     clearCompletedTodos,
-    completeAllTodos,
+    toggleAllTodos,
 } from '../../shared/actions';
 import { TodoState } from '../../shared/types';
 import { dispatch } from '../store';
@@ -17,7 +17,7 @@ function newTodoChangeHandler(ev: Event): void {
 }
 
 function toggleAllClickHandler(): void {
-    dispatch(completeAllTodos());
+    dispatch(toggleAllTodos());
 }
 
 function clearCompletedClickHandler(): void {

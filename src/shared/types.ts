@@ -32,7 +32,7 @@ export enum ActionTypes {
     DELETE_TODO = 'DELETE_TODO',
     EDIT_TODO = 'EDIT_TODO',
     TOGGLE_TODO = 'TOGGLE_TODO',
-    COMPLETE_ALL_TODOS = 'COMPLETE_ALL_TODOS',
+    TOGGLE_ALL_TODOS = 'TOGGLE_ALL_TODOS',
     CLEAR_COMPLETED_TODOS = 'CLEAR_COMPLETED_TODOS',
     SET_TODO_VISIBILITY_FILTER = 'SET_TODO_VISIBILITY_FILTER',
 }
@@ -62,9 +62,9 @@ export interface ToggleTodoAction {
     id: string;
 }
 
-/** Action for marking all TODOs as completed. */
-export interface CompleteAllTodosAction {
-    type: typeof ActionTypes.COMPLETE_ALL_TODOS;
+/** Action for toggling all TODOs as complete or not. */
+export interface ToggleAllTodosAction {
+    type: typeof ActionTypes.TOGGLE_ALL_TODOS;
 }
 
 /** Action for deleting all completed TODOs. */
@@ -84,5 +84,5 @@ export type TodoActionTypes =
     | DeleteTodoAction
     | EditTodoAction
     | ToggleTodoAction
-    | CompleteAllTodosAction
+    | ToggleAllTodosAction
     | ClearCompletedAction;

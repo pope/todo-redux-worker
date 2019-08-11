@@ -46,7 +46,13 @@ export function todos(
                 };
             });
 
-        case ActionTypes.COMPLETE_ALL_TODOS:
+        case ActionTypes.TOGGLE_ALL_TODOS:
+            if (state.every(todo => todo.completed)) {
+                return state.map(todo => ({
+                    ...todo,
+                    completed: false,
+                }));
+            }
             return state.map(todo => {
                 if (todo.completed) {
                     return todo;
