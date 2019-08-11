@@ -78,5 +78,13 @@ export function appTemplate({ todos }: TodoState): TemplateResult {
                 </footer>
             </section>
         </section>
+        <footer class="info">
+            <p>Double-click to edit a todo</p>
+            <p>
+                Written by
+                <a href="http://github.com/pope">K. Adam Christensen</a>
+            </p>
+            <p>In the style of <a href="http://todomvc.com">TodoMVC</a></p>
+        </footer>
     `;
 }
