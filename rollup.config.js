@@ -27,9 +27,9 @@ const plugins = [
 
 export default [
     {
-        input: 'src/app/index.ts',
+        input: 'src/ui/index.ts',
         output: {
-            file: 'dist/app.bundle.js',
+            file: 'dist/ui.bundle.js',
             format: 'iife',
             sourcemap: true,
         },
