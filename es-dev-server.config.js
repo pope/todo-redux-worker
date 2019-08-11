@@ -10,7 +10,9 @@ module.exports = {
                 return;
             }
             const body = context.response.body.replace(
-                /process\.env\.NODE_ENV/g, JSON.stringify('production'));
+                /process\.env\.NODE_ENV/g,
+                JSON.stringify('production')
+            );
             context.body = body;
         },
     ],

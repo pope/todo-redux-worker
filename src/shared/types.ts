@@ -1,4 +1,3 @@
-
 /**
  * The data for a TODO object.
  */
@@ -81,5 +80,9 @@ export interface SetVisibilityFilterAction {
 
 /** All of the Action Types related to the TODO list in the state. */
 export type TodoActionTypes =
-    AddTodoAction | DeleteTodoAction | EditTodoAction | ToggleTodoAction |
-    CompleteAllTodosAction | ClearCompletedAction;
+    | AddTodoAction
+    | DeleteTodoAction
+    | EditTodoAction
+    | ToggleTodoAction
+    | CompleteAllTodosAction
+    | ClearCompletedAction;

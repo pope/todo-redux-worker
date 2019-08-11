@@ -16,9 +16,8 @@ const initialState: readonly Todo[] = [
 /** Reducer to update the TODO list. */
 export function todos(
     state = initialState,
-    action: TodoActionTypes,
+    action: TodoActionTypes
 ): readonly Todo[] {
-
     switch (action.type) {
         case ActionTypes.ADD_TODO:
             return [
@@ -31,7 +30,7 @@ export function todos(
             ];
 
         case ActionTypes.EDIT_TODO:
-            return state.map((todo) => {
+            return state.map(todo => {
                 if (todo.id !== action.id) {
                     return todo;
                 }
@@ -45,7 +44,7 @@ export function todos(
             return state.filter(todo => todo.id !== action.id);
 
         case ActionTypes.TOGGLE_TODO:
-            return state.map((todo) => {
+            return state.map(todo => {
                 if (todo.id !== action.id) {
                     return todo;
                 }
@@ -56,7 +55,7 @@ export function todos(
             });
 
         case ActionTypes.COMPLETE_ALL_TODOS:
-            return state.map((todo) => {
+            return state.map(todo => {
                 if (todo.completed) {
                     return todo;
                 }
@@ -67,7 +66,7 @@ export function todos(
             });
 
         case ActionTypes.CLEAR_COMPLETED_TODOS:
-            return state.filter((todo) => !todo.completed);
+            return state.filter(todo => !todo.completed);
 
         default:
             return state;

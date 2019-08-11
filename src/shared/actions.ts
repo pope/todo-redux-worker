@@ -1,4 +1,14 @@
-import { ActionTypes, AddTodoAction, ClearCompletedAction, CompleteAllTodosAction, DeleteTodoAction, EditTodoAction, SetVisibilityFilterAction, TodoVisiblityFilter, ToggleTodoAction } from './types';
+import {
+    ActionTypes,
+    AddTodoAction,
+    ClearCompletedAction,
+    CompleteAllTodosAction,
+    DeleteTodoAction,
+    EditTodoAction,
+    SetVisibilityFilterAction,
+    TodoVisiblityFilter,
+    ToggleTodoAction,
+} from './types';
 
 /**
  * Creates an Action for adding a TODO.
@@ -68,7 +78,9 @@ export function clearCompletedTodos(): ClearCompletedAction {
  * Creates an Action to set the visibility filter when listing all TODOs.
  * @param filter The visibility filter type
  */
-export function setVisibilityFilter(filter: TodoVisiblityFilter): SetVisibilityFilterAction {
+export function setVisibilityFilter(
+    filter: TodoVisiblityFilter
+): SetVisibilityFilterAction {
     return {
         type: ActionTypes.SET_TODO_VISIBILITY_FILTER,
         filter,

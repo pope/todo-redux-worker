@@ -19,11 +19,11 @@ process.
 
 The basic idea I have right now for the app looks like the Redux pattern.
 
-- The main thread has access to the current *state*, which is immutable.
-- The main thread dispatches *actions* to the Web Worker.
-- The Worker *reduces* the action and state to cerate a new state.
-- The Worker tells the main thread what the new state is.
-- The main thread updates the UI based on the state change.
+-   The main thread has access to the current _state_, which is immutable.
+-   The main thread dispatches _actions_ to the Web Worker.
+-   The Worker _reduces_ the action and state to cerate a new state.
+-   The Worker tells the main thread what the new state is.
+-   The main thread updates the UI based on the state change.
 
 ### Still Vague Ideas
 

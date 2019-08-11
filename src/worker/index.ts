@@ -9,6 +9,6 @@ store.subscribe(() => {
     self.postMessage(store.getState());
 });
 
-self.addEventListener('message', (ev) => {
+self.addEventListener('message', ev => {
     store.dispatch(ev.data);
 });

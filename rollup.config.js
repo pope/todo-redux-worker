@@ -36,5 +36,5 @@ export default [
             sourcemap: true,
         },
         plugins,
-    }
+    },
 ];

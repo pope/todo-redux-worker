@@ -4,7 +4,7 @@ import { TodoState } from '../shared/types';
 
 const worker = new Worker('/dist/worker.bundle.js');
 
-worker.addEventListener('message', (ev) => {
+worker.addEventListener('message', ev => {
     console.log(ev.data as TodoState);
 });
 
