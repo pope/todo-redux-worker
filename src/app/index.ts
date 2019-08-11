@@ -1,19 +1,14 @@
 import 'todomvc-app-css/index.css';
 
-import { Action } from 'redux';
 import { addTodo } from '../shared/actions';
 import { assert } from '../shared/asserts';
-import { TodoState } from '../shared/types';
+import { dispatch, subscribe } from './store';
 
-const worker = new Worker('/dist/worker.bundle.js');
-
-worker.addEventListener('message', ev => {
-    console.log(ev.data as TodoState);
+subscribe({
+    next(state) {
+        console.log(state);
+    },
 });
-
-function dispatch(action: Action): void {
-    worker.postMessage(action);
-}
 
 dispatch(addTodo('Do a thing'));
 dispatch(addTodo('Do another thing'));
