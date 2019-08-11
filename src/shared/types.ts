@@ -10,7 +10,7 @@ export interface Todo {
 /**
  * All of the available filter types for sorting TODO items.
  */
-export const enum TodoVisiblityFilter {
+export enum TodoVisiblityFilter {
     SHOW_ALL = 'SHOW_ALL',
     SHOW_COMPLETED = 'SHOW_COMPLETED',
     SHOW_ACTIVE = 'SHOW_ACTIVE',

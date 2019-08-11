@@ -4,9 +4,12 @@ import {
     clearCompletedTodos,
     toggleAllTodos,
 } from '../../shared/actions';
-import { TodoState } from '../../shared/types';
+import { Todo, TodoState, TodoVisiblityFilter } from '../../shared/types';
 import { dispatch } from '../store';
 import { todosTemplate } from './todos';
+import { visibilityFilterTemplate } from './visibilityFilter';
+
+const { SHOW_ALL, SHOW_ACTIVE, SHOW_COMPLETED } = TodoVisiblityFilter;
 
 function newTodoChangeHandler(ev: Event): void {
     const input = ev.target as HTMLInputElement;
@@ -24,13 +27,32 @@ function clearCompletedClickHandler(): void {
     dispatch(clearCompletedTodos());
 }
 
+function getFilteredTodos(
+    todos: readonly Todo[],
+    visibilityFilter: TodoVisiblityFilter
+): readonly Todo[] {
+    switch (visibilityFilter) {
+        case SHOW_ALL:
+            return todos;
+        case SHOW_ACTIVE:
+            return todos.filter(t => !t.completed);
+        case SHOW_COMPLETED:
+            return todos.filter(t => t.completed);
+    }
+}
+
 /** The overall application HTML template. */
-export function appTemplate({ todos }: TodoState): TemplateResult {
+export function appTemplate({
+    todos,
+    visibilityFilter,
+}: TodoState): TemplateResult {
     const itemsLeftCount = todos.filter(t => !t.completed).length;
     const hasNoCompleted = todos.length - itemsLeftCount === 0;
 
     const mainStyle = todos.length === 0 ? 'display: none' : '';
     const clearButtonStyle = hasNoCompleted ? 'display: none' : '';
+
+    const filteredTodos = getFilteredTodos(todos, visibilityFilter);
 
     return html`
         <section class="todoapp">
@@ -52,22 +74,12 @@ export function appTemplate({ todos }: TodoState): TemplateResult {
                     .checked=${itemsLeftCount === 0}
                 />
                 <label for="toggle-all">Mark all as complete</label>
-                ${todosTemplate(todos)}
+                ${todosTemplate(filteredTodos)}
                 <footer class="footer">
                     <span class="todo-count">
                         ${itemsLeftCount} items left
                     </span>
-                    <ul class="filters">
-                        <li>
-                            <a href="#/" class="selected">All</a>
-                        </li>
-                        <li>
-                            <a href="#/active">Active</a>
-                        </li>
-                        <li>
-                            <a href="#/completed">Completed</a>
-                        </li>
-                    </ul>
+                    ${visibilityFilterTemplate(visibilityFilter)}
                     <button
                         class="clear-completed"
                         @click=${clearCompletedClickHandler}
