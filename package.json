@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "concurrently npm:serve npm:watch:*",
-    "build": "npm run build:*",
+    "build": "npm-run-all build:*",
     "build:rollup": "rollup -c",
     "watch:rollup": "rollup -c --no-watch.clearScreen",
     "watch:tsc": "tsc --noEmit --watch --preserveWatchOutput --pretty",
