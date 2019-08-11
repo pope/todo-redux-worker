@@ -8,8 +8,6 @@ import { TodoState, TodoVisiblityFilter } from '../shared/types';
 import { appTemplate } from './components/app';
 import { dispatch, subscribe } from './store';
 
-const { SHOW_ALL, SHOW_ACTIVE, SHOW_COMPLETED } = TodoVisiblityFilter;
-
 const body = assert(document.querySelector('body'));
 body.classList.remove('loading');
 
@@ -32,14 +30,12 @@ const hashChange$ = concat(
 
 function hashToFilter(hash: string): TodoVisiblityFilter {
     switch (hash) {
-        case '#/':
-            return SHOW_ALL;
         case '#/active':
-            return SHOW_ACTIVE;
+            return TodoVisiblityFilter.SHOW_ACTIVE;
         case '#/completed':
-            return SHOW_COMPLETED;
+            return TodoVisiblityFilter.SHOW_COMPLETED;
         default:
-            throw Error(`Unsupported hash: ${hash}`);
+            return TodoVisiblityFilter.SHOW_ALL;
     }
 }
 hashChange$.subscribe(hash => {
