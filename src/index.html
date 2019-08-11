@@ -7,7 +7,7 @@
     <title>Huh</title>
 
     <link rel="preload" href="/dist/ui.bundle.js" as="script" />
-    <link rel="preload" href="/dist/worker.bundle.js" as="worker" />
+
     <style>
       body {
         opacity: 1;
@@ -22,6 +22,9 @@
 
   <body class="loading">
     <div id="app"></div>
+    <script>
+      self.todoWorker = new Worker('/dist/worker.bundle.js');
+    </script>
     <script src="/dist/ui.bundle.js" defer></script>
   </body>
 </html>
