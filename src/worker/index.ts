@@ -1,15 +1,14 @@
-import { store } from './state';
+import { createStore } from 'redux';
+import { rootReducer } from './reducers/index';
 
 declare var self: Worker;
 
+const store = createStore(rootReducer);
+
+store.subscribe(() => {
+    self.postMessage(store.getState());
+});
+
 self.addEventListener('message', (ev) => {
-    switch (ev.data) {
-        case 'INCREMENT':
-        case 'DECREMENT':
-            store.dispatch({type: ev.data});
-            break;
-        default:
-            console.warn(`Unhandled message: ${ev.data}`);
-            break;
-    }
+    store.dispatch(ev.data);
 });

@@ -1,11 +1,16 @@
+import { Action } from 'redux';
+import { addTodo } from '../shared/actions';
+import { TodoState } from '../shared/types';
 
 const worker = new Worker('/dist/worker.bundle.js');
 
-console.log('Hello');
+worker.addEventListener('message', (ev) => {
+    console.log(ev.data as TodoState);
+});
 
-worker.postMessage('nope');
-setInterval(() => {
-    const isEven = Math.floor(Math.random() * Math.floor(2)) === 0;
-    const msg = isEven ? 'INCREMENT': 'DECREMENT';
-    worker.postMessage(msg);
-}, 5000);
+function dispatch(action: Action): void {
+    worker.postMessage(action);
+}
+
+dispatch(addTodo('Do a thing'));
+dispatch(addTodo('Do another thing'));
