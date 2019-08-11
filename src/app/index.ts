@@ -2,6 +2,7 @@ import 'todomvc-app-css/index.css';
 
 import { Action } from 'redux';
 import { addTodo } from '../shared/actions';
+import { assert } from '../shared/asserts';
 import { TodoState } from '../shared/types';
 
 const worker = new Worker('/dist/worker.bundle.js');
@@ -17,5 +18,5 @@ function dispatch(action: Action): void {
 dispatch(addTodo('Do a thing'));
 dispatch(addTodo('Do another thing'));
 
-const body = document.querySelector('body');
-body && body.classList.remove('loading');
+const body = assert(document.querySelector('body'));
+body.classList.remove('loading');
