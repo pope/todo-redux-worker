@@ -11,7 +11,7 @@
     "watch:tsc": "tsc --noEmit --watch --preserveWatchOutput --pretty",
     "serve": "es-dev-server",
     "fmt": "npm-run-all fmt:*",
-    "fmt:prettier": "prettier --write \"*/**/*.{js,ts,html}\" *.{js,md}",
+    "fmt:prettier": "prettier --write \"src/**/*.{js,ts,html}\" *.{js,md}",
     "fmt:eslint": "eslint \"*/**/*.{js,ts}\" *.js --quiet --fix",
     "lint": "npm-run-all lint:*",
     "lint:tsc": "tsc --noEmit",
