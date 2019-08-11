@@ -5,6 +5,7 @@ declare var self: Worker;
 
 const store = createStore(rootReducer);
 
+self.postMessage(store.getState());
 store.subscribe(() => {
     self.postMessage(store.getState());
 });

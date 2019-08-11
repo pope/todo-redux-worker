@@ -5,17 +5,9 @@ function generateId(): string {
     return `todo-${id++}`;
 }
 
-const initialState: readonly Todo[] = [
-    {
-        id: generateId(),
-        text: 'Use Redux',
-        completed: false,
-    },
-];
-
 /** Reducer to update the TODO list. */
 export function todos(
-    state = initialState,
+    state: readonly Todo[] = [],
     action: TodoActionTypes
 ): readonly Todo[] {
     switch (action.type) {
