@@ -1,3 +1,5 @@
+import 'todomvc-app-css/index.css';
+
 import { Action } from 'redux';
 import { addTodo } from '../shared/actions';
 import { TodoState } from '../shared/types';
@@ -14,3 +16,6 @@ function dispatch(action: Action): void {
 
 dispatch(addTodo('Do a thing'));
 dispatch(addTodo('Do another thing'));
+
+const body = document.querySelector('body');
+body && body.classList.remove('loading');

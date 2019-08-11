@@ -4,6 +4,7 @@ import replace from 'rollup-plugin-replace';
 import sourcemaps from 'rollup-plugin-sourcemaps';
 import typescript from 'rollup-plugin-typescript';
 import { terser } from 'rollup-plugin-terser';
+import postcss from 'rollup-plugin-postcss';
 
 const plugins = [
     sourcemaps(),
@@ -16,6 +17,12 @@ const plugins = [
     }),
     terser(),
     typescript(),
+    postcss({
+        minify: true,
+        namedExports(name) {
+            return name.replace(/-\w/g, val => val.slice(1).toUpperCase());
+        },
+    }),
 ];
 
 export default [

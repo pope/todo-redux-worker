@@ -11,7 +11,7 @@
     "watch:tsc": "tsc --noEmit --watch --preserveWatchOutput --pretty",
     "serve": "es-dev-server",
     "fmt": "npm-run-all fmt:*",
-    "fmt:prettier": "prettier --write \"*/**/*.{js,ts}\" *.{js,md}",
+    "fmt:prettier": "prettier --write \"*/**/*.{js,ts,html}\" *.{js,md}",
     "fmt:eslint": "eslint \"*/**/*.{js,ts}\" *.js --quiet --fix",
     "lint": "npm-run-all lint:*",
     "lint:tsc": "tsc --noEmit",
@@ -32,6 +32,7 @@
     "rollup": "^1.19.4",
     "rollup-plugin-commonjs": "^10.0.2",
     "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-postcss": "^2.0.3",
     "rollup-plugin-replace": "^2.2.0",
     "rollup-plugin-sourcemaps": "^0.4.2",
     "rollup-plugin-terser": "^5.1.1",
@@ -41,6 +42,7 @@
   "dependencies": {
     "redux": "^4.0.4",
     "redux-observable": "^1.1.0",
-    "rxjs": "^6.5.2"
+    "rxjs": "^6.5.2",
+    "todomvc-app-css": "^2.2.0"
   }
 }
