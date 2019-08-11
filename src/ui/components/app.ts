@@ -7,29 +7,22 @@ import {
 import { TodoState } from '../../shared/types';
 import { dispatch } from '../store';
 import { todosTemplate } from './todos';
-import { EventHandlerWithOptions } from './types';
 
-const newTodoChangeHandler: EventHandlerWithOptions = {
-    handleEvent(ev: Event): void {
-        const input = ev.target as HTMLInputElement;
-        if (input.value) {
-            dispatch(addTodo(input.value));
-        }
-        input.value = '';
-    },
-};
+function newTodoChangeHandler(ev: Event): void {
+    const input = ev.target as HTMLInputElement;
+    if (input.value) {
+        dispatch(addTodo(input.value));
+    }
+    input.value = '';
+}
 
-const toggleAllClickHandler: EventHandlerWithOptions = {
-    handleEvent(): void {
-        dispatch(completeAllTodos());
-    },
-};
+function toggleAllClickHandler(): void {
+    dispatch(completeAllTodos());
+}
 
-const clearCompletedClickHandler: EventHandlerWithOptions = {
-    handleEvent(): void {
-        dispatch(clearCompletedTodos());
-    },
-};
+function clearCompletedClickHandler(): void {
+    dispatch(clearCompletedTodos());
+}
 
 /** The overall application HTML template. */
 export function appTemplate({ todos }: TodoState): TemplateResult {

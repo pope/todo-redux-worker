@@ -3,7 +3,6 @@ import { repeat } from 'lit-html/directives/repeat';
 import { toggleTodo, deleteTodo } from '../../shared/actions';
 import { Todo } from '../../shared/types';
 import { dispatch } from '../store';
-import { EventHandlerWithOptions } from './types';
 import { assert } from '../../shared/asserts';
 
 function todoTemplate({ id, text, completed }: Todo): TemplateResult {
@@ -19,26 +18,35 @@ function todoTemplate({ id, text, completed }: Todo): TemplateResult {
     `;
 }
 
-const clickHandler: EventHandlerWithOptions = {
-    handleEvent(ev: Event) {
-        const target = ev.target as HTMLElement;
+/**
+ * Handles any click from inside of the list.
+ *
+ * This then further checks which element was clicked. If it was the checkbox,
+ * then the TODO's completed status is toggled. If it was the destroy button,
+ * then the TODO is deleted.
+ *
+ * This is done so that just one event handler is added to the list instead of
+ * `n` handlers.
+ * @param ev The click event
+ */
+function clickHandler(ev: Event) {
+    const target = ev.target as HTMLElement;
 
-        const liEl = assert(target.closest('li'));
-        const id = assert(liEl.getAttribute('data-id'));
+    const liEl = assert(target.closest('li'));
+    const id = assert(liEl.getAttribute('data-id'));
 
-        const toggleEl = target.closest('.toggle');
-        if (toggleEl) {
-            dispatch(toggleTodo(id));
-            return;
-        }
+    const toggleEl = target.closest('.toggle');
+    if (toggleEl) {
+        dispatch(toggleTodo(id));
+        return;
+    }
 
-        const destroyEl = target.closest('.destroy');
-        if (destroyEl) {
-            dispatch(deleteTodo(id));
-            return;
-        }
-    },
-};
+    const destroyEl = target.closest('.destroy');
+    if (destroyEl) {
+        dispatch(deleteTodo(id));
+        return;
+    }
+}
 
 /** The template to render and manage a list of TODOs. */
 export function todosTemplate(todos: readonly Todo[]): TemplateResult {
