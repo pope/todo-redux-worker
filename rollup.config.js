@@ -4,6 +4,7 @@ import sourcemaps from 'rollup-plugin-sourcemaps';
 import typescript from 'rollup-plugin-typescript';
 import { terser } from 'rollup-plugin-terser';
 import postcss from 'rollup-plugin-postcss';
+import minifyHtml from 'rollup-plugin-minify-html-literals';
 
 const plugins = [
     sourcemaps(),
@@ -15,6 +16,7 @@ const plugins = [
         'process.env.NODE_ENV': JSON.stringify('production'),
     }),
     typescript(),
+    minifyHtml(),
     terser(),
     postcss({
         minify: true,
