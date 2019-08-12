@@ -17,7 +17,7 @@ function getIdFromDom(el: HTMLElement): string {
 }
 
 const editBlurHandler: EventListenerObject &
-    Partial<AddEventListenerOptions> = {
+Partial<AddEventListenerOptions> = {
     handleEvent(ev: Event): void {
         const target = ev.target as HTMLElement;
         const id = getIdFromDom(target);
