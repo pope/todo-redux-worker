@@ -1,10 +1,10 @@
+import minifyHtml from 'rollup-plugin-minify-html-literals';
 import nodeResolve from 'rollup-plugin-node-resolve';
+import postcss from 'rollup-plugin-postcss';
 import replace from 'rollup-plugin-replace';
 import sourcemaps from 'rollup-plugin-sourcemaps';
-import typescript from 'rollup-plugin-typescript';
 import { terser } from 'rollup-plugin-terser';
-import postcss from 'rollup-plugin-postcss';
-import minifyHtml from 'rollup-plugin-minify-html-literals';
+import typescript from 'rollup-plugin-typescript';
 
 const plugins = [
     sourcemaps(),
