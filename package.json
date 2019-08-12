@@ -4,7 +4,7 @@
   "private": true,
   "main": "index.js",
   "scripts": {
-    "dev": "concurrently npm:serve npm:watch:*",
+    "dev": "npm-run-all -l -p serve watch:*",
     "build": "npm-run-all build:*",
     "build:html": "html-minifier --minify-js true --minify-css true --collapse-whitespace --remove-attribute-quotes -o dist/index.html src/index.html",
     "build:rollup": "rollup -c",
@@ -24,7 +24,6 @@
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^1.13.0",
     "@typescript-eslint/parser": "^1.13.0",
-    "concurrently": "^4.1.1",
     "es-dev-server": "^1.10.4",
     "eslint": "^5.16.0",
     "eslint-config-prettier": "^6.0.0",

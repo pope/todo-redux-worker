@@ -7,43 +7,48 @@ import { terser } from 'rollup-plugin-terser';
 import typescript from 'rollup-plugin-typescript';
 import pkg from './package.json';
 
-const plugins = [
-    sourcemaps(),
-    nodeResolve({
-        browser: true,
-        mainFields: ['module'],
-    }),
-    replace({
-        'process.env.NODE_ENV': JSON.stringify('production'),
-    }),
-    typescript(),
-    minifyHtml(),
-    terser(),
-    postcss({
-        minify: true,
-        namedExports(name) {
-            return name.replace(/-\w/g, val => val.slice(1).toUpperCase());
-        },
-    }),
-];
+function getPlugins(debug) {
+    return [
+        sourcemaps(),
+        nodeResolve({
+            browser: true,
+            mainFields: ['jsnext:main', 'module'],
+        }),
+        replace({
+            'process.env.NODE_ENV': JSON.stringify('production'),
+        }),
+        typescript(),
+        !debug && minifyHtml(),
+        !debug && terser(),
+        postcss({
+            minify: true,
+            namedExports(name) {
+                return name.replace(/-\w/g, val => val.slice(1).toUpperCase());
+            },
+        }),
+    ];
+}
 
-export default [
-    {
-        input: 'src/ui/index.ts',
-        output: {
-            file: `dist/ui-${pkg.version}.js`,
-            format: 'iife',
-            sourcemap: true,
+export default function({ watch }) {
+    const plugins = getPlugins(/* debug= */ watch);
+    return [
+        {
+            input: 'src/ui/index.ts',
+            output: {
+                file: `dist/ui-${pkg.version}.js`,
+                format: 'iife',
+                sourcemap: true,
+            },
+            plugins,
         },
-        plugins,
-    },
-    {
-        input: 'src/worker/index.ts',
-        output: {
-            file: `dist/worker-${pkg.version}.js`,
-            format: 'iife',
-            sourcemap: true,
+        {
+            input: 'src/worker/index.ts',
+            output: {
+                file: `dist/worker-${pkg.version}.js`,
+                format: 'iife',
+                sourcemap: true,
+            },
+            plugins,
         },
-        plugins,
-    },
-];
+    ];
+}
