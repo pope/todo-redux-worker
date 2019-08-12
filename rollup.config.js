@@ -5,6 +5,7 @@ import replace from 'rollup-plugin-replace';
 import sourcemaps from 'rollup-plugin-sourcemaps';
 import { terser } from 'rollup-plugin-terser';
 import typescript from 'rollup-plugin-typescript';
+import pkg from './package.json';
 
 const plugins = [
     sourcemaps(),
@@ -30,7 +31,7 @@ export default [
     {
         input: 'src/ui/index.ts',
         output: {
-            file: 'dist/ui.bundle.js',
+            file: `dist/ui-${pkg.version}.js`,
             format: 'iife',
             sourcemap: true,
         },
@@ -39,7 +40,7 @@ export default [
     {
         input: 'src/worker/index.ts',
         output: {
-            file: 'dist/worker.bundle.js',
+            file: `dist/worker-${pkg.version}.js`,
             format: 'iife',
             sourcemap: true,
         },
