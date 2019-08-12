@@ -13,8 +13,9 @@ const { SHOW_ALL, SHOW_ACTIVE, SHOW_COMPLETED } = TodoVisiblityFilter;
 
 function newTodoChangeHandler(ev: Event): void {
     const input = ev.target as HTMLInputElement;
-    if (input.value) {
-        dispatch(addTodo(input.value));
+    const val = input.value.trim();
+    if (val) {
+        dispatch(addTodo(val));
     }
     input.value = '';
 }

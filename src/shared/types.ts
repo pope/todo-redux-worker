@@ -5,6 +5,7 @@ export interface Todo {
     readonly id: string;
     readonly text: string;
     readonly completed: boolean;
+    readonly editable: boolean;
 }
 
 /**
@@ -33,6 +34,7 @@ export enum ActionTypes {
     EDIT_TODO = 'EDIT_TODO',
     TOGGLE_TODO = 'TOGGLE_TODO',
     TOGGLE_ALL_TODOS = 'TOGGLE_ALL_TODOS',
+    TOGGLE_EDITABLE_TODO = 'TOGGLE_EDITABLE_TODO',
     CLEAR_COMPLETED_TODOS = 'CLEAR_COMPLETED_TODOS',
     SET_TODO_VISIBILITY_FILTER = 'SET_TODO_VISIBILITY_FILTER',
 }
@@ -67,6 +69,11 @@ export interface ToggleAllTodosAction {
     type: typeof ActionTypes.TOGGLE_ALL_TODOS;
 }
 
+export interface ToggleEditableTodoAction {
+    type: typeof ActionTypes.TOGGLE_EDITABLE_TODO;
+    id: string;
+}
+
 /** Action for deleting all completed TODOs. */
 export interface ClearCompletedAction {
     type: typeof ActionTypes.CLEAR_COMPLETED_TODOS;
@@ -85,4 +92,5 @@ export type TodoActionTypes =
     | EditTodoAction
     | ToggleTodoAction
     | ToggleAllTodosAction
+    | ToggleEditableTodoAction
     | ClearCompletedAction;

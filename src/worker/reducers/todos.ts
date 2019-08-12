@@ -18,6 +18,7 @@ export function todos(
                     id: generateId(),
                     text: action.text,
                     completed: false,
+                    editable: false,
                 },
             ];
 
@@ -60,6 +61,17 @@ export function todos(
                 return {
                     ...todo,
                     completed: true,
+                };
+            });
+
+        case ActionTypes.TOGGLE_EDITABLE_TODO:
+            return state.map(todo => {
+                if (todo.id !== action.id) {
+                    return todo;
+                }
+                return {
+                    ...todo,
+                    editable: !todo.editable,
                 };
             });
 

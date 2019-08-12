@@ -8,6 +8,7 @@ import {
     SetVisibilityFilterAction,
     TodoVisiblityFilter,
     ToggleTodoAction,
+    ToggleEditableTodoAction,
 } from './types';
 
 /**
@@ -62,6 +63,14 @@ export function toggleTodo(id: string): ToggleTodoAction {
 export function toggleAllTodos(): ToggleAllTodosAction {
     return {
         type: ActionTypes.TOGGLE_ALL_TODOS,
+    };
+}
+
+/** Creates an Action to put the TODO in an editable state. */
+export function toggleEditableTodo(id: string): ToggleEditableTodoAction {
+    return {
+        type: ActionTypes.TOGGLE_EDITABLE_TODO,
+        id,
     };
 }
 
