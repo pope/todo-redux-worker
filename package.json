@@ -22,6 +22,7 @@
   },
   "license": "UNLICENSED",
   "devDependencies": {
+    "@types/remote-redux-devtools": "^0.5.3",
     "@typescript-eslint/eslint-plugin": "^1.13.0",
     "@typescript-eslint/parser": "^1.13.0",
     "es-dev-server": "^1.10.4",
@@ -35,6 +36,7 @@
     "prettier": "^1.18.2",
     "rimraf": "^2.6.3",
     "rollup": "^1.19.4",
+    "rollup-plugin-commonjs": "^10.0.2",
     "rollup-plugin-minify-html-literals": "^1.2.2",
     "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-postcss": "^2.0.3",
@@ -48,6 +50,7 @@
     "lit-html": "^1.1.1",
     "redux": "^4.0.4",
     "redux-observable": "^1.1.0",
+    "remote-redux-devtools": "^0.5.16",
     "rxjs": "^6.5.2",
     "todomvc-app-css": "^2.2.0"
   }

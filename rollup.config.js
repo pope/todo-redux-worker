@@ -1,3 +1,4 @@
+import commonjs from 'rollup-plugin-commonjs';
 import minifyHtml from 'rollup-plugin-minify-html-literals';
 import nodeResolve from 'rollup-plugin-node-resolve';
 import postcss from 'rollup-plugin-postcss';
@@ -49,6 +50,15 @@ export default function({ watch }) {
                 sourcemap: true,
             },
             plugins,
+        },
+        {
+            input: 'src/worker/devtools.ts',
+            output: {
+                file: `dist/worker-devtools-${pkg.version}.js`,
+                format: 'iife',
+                sourcemap: true,
+            },
+            plugins: [commonjs(), ...plugins],
         },
     ];
 }
