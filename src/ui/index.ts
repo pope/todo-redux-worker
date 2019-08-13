@@ -6,8 +6,8 @@ import { setVisibilityFilter } from '../shared/actions';
 import { assert } from '../shared/asserts';
 import { TodoVisiblityFilter } from '../shared/types';
 import { appTemplate } from './components/app';
-import { createStore, Store } from './store';
 import { ActionEvent } from './components/events';
+import { createStore, Store } from './store';
 
 function loaded(): void {
     const body = assert(document.querySelector('body'));
