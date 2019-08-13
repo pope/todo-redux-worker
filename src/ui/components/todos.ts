@@ -9,7 +9,7 @@ import {
 } from '../../shared/actions';
 import { assert } from '../../shared/asserts';
 import { Todo } from '../../shared/types';
-import { dispatch } from '../store';
+import { dispatch } from './events';
 
 function getIdFromDom(el: HTMLElement): string {
     const liEl = assert(el.closest('li'));
@@ -21,12 +21,12 @@ const editBlurHandler: EventListenerObject &
     handleEvent(ev: Event): void {
         const target = ev.target as HTMLElement;
         const id = getIdFromDom(target);
-        dispatch(toggleEditableTodo(id));
+        dispatch(target, toggleEditableTodo(id));
     },
     capture: true,
 };
 
-function editKeyUpHandler(ev: KeyboardEvent): void {
+function editKeyUpHandler(this: EventTarget, ev: KeyboardEvent): void {
     const target = ev.target as HTMLInputElement;
     switch (ev.key) {
         case 'Enter': {
@@ -35,11 +35,8 @@ function editKeyUpHandler(ev: KeyboardEvent): void {
 
             const id = getIdFromDom(target);
             const val = target.value.trim();
-            if (val) {
-                dispatch(editTodo(id, val));
-            } else {
-                dispatch(deleteTodo(id));
-            }
+            const action = val ? editTodo(id, val) : deleteTodo(id);
+            dispatch(this, action);
             break;
         }
         case 'Escape':
@@ -113,25 +110,25 @@ function todoTemplate({ id, text, completed, editable }: Todo): TemplateResult {
  * `n` handlers.
  * @param ev The click event
  */
-function clickHandler(ev: Event) {
+function clickHandler(this: EventTarget, ev: Event) {
     const target = ev.target as HTMLElement;
 
     const toggleEl = target.closest('.toggle');
     if (toggleEl) {
         const id = getIdFromDom(target);
-        dispatch(toggleTodo(id));
+        dispatch(this, toggleTodo(id));
         return;
     }
 
     const destroyEl = target.closest('.destroy');
     if (destroyEl) {
         const id = getIdFromDom(target);
-        dispatch(deleteTodo(id));
+        dispatch(this, deleteTodo(id));
         return;
     }
 }
 
-function doubleClickHandler(ev: MouseEvent): void {
+function doubleClickHandler(this: EventTarget, ev: MouseEvent): void {
     const target = ev.target as HTMLElement;
     if (target.closest('.edit')) {
         // Don't handle extra double clicks from inside of the edit input.
@@ -140,7 +137,7 @@ function doubleClickHandler(ev: MouseEvent): void {
         return;
     }
     const id = getIdFromDom(target);
-    dispatch(toggleEditableTodo(id));
+    dispatch(this, toggleEditableTodo(id));
 }
 
 /** The template to render and manage a list of TODOs. */

@@ -5,27 +5,27 @@ import {
     toggleAllTodos,
 } from '../../shared/actions';
 import { Todo, TodoState, TodoVisiblityFilter } from '../../shared/types';
-import { dispatch } from '../store';
+import { dispatch } from './events';
 import { todosTemplate } from './todos';
 import { visibilityFilterTemplate } from './visibilityFilter';
 
 const { SHOW_ALL, SHOW_ACTIVE, SHOW_COMPLETED } = TodoVisiblityFilter;
 
-function newTodoChangeHandler(ev: Event): void {
+function newTodoChangeHandler(this: EventTarget, ev: Event): void {
     const input = ev.target as HTMLInputElement;
     const val = input.value.trim();
     if (val) {
-        dispatch(addTodo(val));
+        dispatch(this, addTodo(val));
     }
     input.value = '';
 }
 
-function toggleAllClickHandler(): void {
-    dispatch(toggleAllTodos());
+function toggleAllClickHandler(this: EventTarget): void {
+    dispatch(this, toggleAllTodos());
 }
 
-function clearCompletedClickHandler(): void {
-    dispatch(clearCompletedTodos());
+function clearCompletedClickHandler(this: EventTarget): void {
+    dispatch(this, clearCompletedTodos());
 }
 
 function getFilteredTodos(

@@ -1,32 +1,18 @@
 import { render } from 'lit-html';
-import { concat, fromEvent, of } from 'rxjs';
+import { concat, fromEvent, Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import 'todomvc-app-css/index.css';
 import { setVisibilityFilter } from '../shared/actions';
 import { assert } from '../shared/asserts';
-import { TodoState, TodoVisiblityFilter } from '../shared/types';
+import { TodoVisiblityFilter } from '../shared/types';
 import { appTemplate } from './components/app';
-import { dispatch, subscribe } from './store';
+import { createStore, Store } from './store';
+import { ActionEvent } from './components/events';
 
-const body = assert(document.querySelector('body'));
-body.classList.remove('loading');
-
-const appEl = assert(document.querySelector('#app'));
-
-function renderApp(state: TodoState): void {
-    render(appTemplate(state), appEl);
+function loaded(): void {
+    const body = assert(document.querySelector('body'));
+    body.classList.remove('loading');
 }
-
-subscribe({
-    next(state) {
-        renderApp(state);
-    },
-});
-
-const hashChange$ = concat(
-    of(document.location.hash),
-    fromEvent(window, 'hashchange').pipe(map(() => document.location.hash))
-);
 
 function hashToFilter(hash: string): TodoVisiblityFilter {
     switch (hash) {
@@ -38,6 +24,42 @@ function hashToFilter(hash: string): TodoVisiblityFilter {
             return TodoVisiblityFilter.SHOW_ALL;
     }
 }
-hashChange$.subscribe(hash => {
-    dispatch(setVisibilityFilter(hashToFilter(hash)));
-});
+
+class App {
+    private readonly appEl = assert(document.querySelector('#app'));
+
+    constructor(
+        private readonly store: Store,
+        hashChange$: Observable<string>
+    ) {
+        store.subscribe({
+            next: () => {
+                this.renderApp();
+            },
+        });
+        hashChange$.subscribe(hash => {
+            store.dispatch(setVisibilityFilter(hashToFilter(hash)));
+        });
+
+        this.appEl.addEventListener('dispatch', ev => {
+            const actionEvent = ev as ActionEvent;
+            store.dispatch(actionEvent.detail);
+        });
+    }
+
+    private renderApp(): void {
+        render(appTemplate(this.store.currentState), this.appEl);
+    }
+}
+
+async function createApp(): Promise<App> {
+    const store = await createStore();
+    const hashChange$ = concat(
+        of(document.location.hash),
+        fromEvent(window, 'hashchange').pipe(map(() => document.location.hash))
+    );
+    return new App(store, hashChange$);
+}
+
+createApp();
+loaded();
