@@ -10,7 +10,6 @@
     "build:rollup": "rollup -c",
     "watch:html": "nodemon --watch src -e html -x \"npm run build:html\"",
     "watch:rollup": "rollup -c --no-watch.clearScreen",
-    "watch:tsc": "tsc --noEmit --watch --preserveWatchOutput --pretty",
     "serve": "es-dev-server",
     "fmt": "npm-run-all fmt:*",
     "fmt:prettier": "prettier --write \"src/**/*.{js,ts,html}\" *.{js,md}",
@@ -30,8 +29,6 @@
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-lit": "^1.1.1",
     "html-minifier": "^4.0.0",
-    "koa-bodyparser": "^4.2.1",
-    "koa-compress": "^3.0.0",
     "nodemon": "^1.19.1",
     "npm-run-all": "^4.1.5",
     "prettier": "^1.18.2",
@@ -42,7 +39,7 @@
     "rollup-plugin-replace": "^2.2.0",
     "rollup-plugin-sourcemaps": "^0.4.2",
     "rollup-plugin-terser": "^5.1.1",
-    "rollup-plugin-typescript": "^1.0.1",
+    "rollup-plugin-typescript2": "^0.22.1",
     "typescript": "^3.5.3"
   },
   "dependencies": {
