@@ -1,6 +1,7 @@
 import { createStore } from 'redux';
 import { rootReducer } from './reducers/index';
 
+/* eslint-disable-next-line no-var */
 declare var self: Worker;
 
 const store = createStore(rootReducer);
