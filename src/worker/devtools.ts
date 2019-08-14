@@ -6,5 +6,7 @@ declare var self: Worker;
 
 self.composeWithDevTools = (...funcs: StoreEnhancer[]) =>
     composeWithDevTools({
+        hostname: 'localhost',
+        port: 8000,
         realtime: true,
     })(...funcs);
