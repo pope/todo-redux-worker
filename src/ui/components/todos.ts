@@ -6,9 +6,9 @@ import {
     editTodo,
     toggleEditableTodo,
     toggleTodo,
-} from '../../shared/actions';
-import { assert } from '../../shared/asserts';
-import { Todo } from '../../shared/types';
+} from 'src/shared/actions';
+import { assert } from 'src/shared/asserts';
+import { Todo } from 'src/shared/types';
 import { dispatch } from './events';
 
 function getIdFromDom(el: HTMLElement): string {

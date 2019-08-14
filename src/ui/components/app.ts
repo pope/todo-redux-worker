@@ -3,8 +3,8 @@ import {
     addTodo,
     clearCompletedTodos,
     toggleAllTodos,
-} from '../../shared/actions';
-import { Todo, TodoState, TodoVisiblityFilter } from '../../shared/types';
+} from 'src/shared/actions';
+import { Todo, TodoState, TodoVisiblityFilter } from 'src/shared/types';
 import { dispatch } from './events';
 import { todosTemplate } from './todos';
 import { visibilityFilterTemplate } from './visibilityFilter';

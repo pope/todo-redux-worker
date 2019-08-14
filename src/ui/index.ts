@@ -1,10 +1,10 @@
 import { render } from 'lit-html';
 import { concat, fromEvent, Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { setVisibilityFilter } from 'src/shared/actions';
+import { assert } from 'src/shared/asserts';
+import { TodoVisiblityFilter } from 'src/shared/types';
 import 'todomvc-app-css/index.css';
-import { setVisibilityFilter } from '../shared/actions';
-import { assert } from '../shared/asserts';
-import { TodoVisiblityFilter } from '../shared/types';
 import { appTemplate } from './components/app';
 import { ActionEvent } from './components/events';
 import { createStore, Store } from './store';

@@ -2,7 +2,7 @@ import {
     ActionTypes,
     SetVisibilityFilterAction,
     TodoVisiblityFilter,
-} from '../../shared/types';
+} from 'src/shared/types';
 
 /** Reducer for updating the visibilityFilter. */
 export function visibilityFilter(

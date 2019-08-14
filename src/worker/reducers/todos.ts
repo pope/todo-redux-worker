@@ -1,4 +1,4 @@
-import { ActionTypes, Todo, TodoActionTypes } from '../../shared/types';
+import { ActionTypes, Todo, TodoActionTypes } from 'src/shared/types';
 
 let id = 0;
 function generateId(): string {

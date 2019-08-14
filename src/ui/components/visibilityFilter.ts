@@ -1,5 +1,5 @@
 import { html, TemplateResult } from 'lit-html';
-import { TodoVisiblityFilter } from '../../shared/types';
+import { TodoVisiblityFilter } from 'src/shared/types';
 
 const { SHOW_ALL, SHOW_ACTIVE, SHOW_COMPLETED } = TodoVisiblityFilter;
 

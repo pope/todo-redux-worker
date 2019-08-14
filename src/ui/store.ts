@@ -1,7 +1,7 @@
 import { Action } from 'redux';
 import { Observable, PartialObserver, ReplaySubject, Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
-import { TodoState } from '../shared/types';
+import { TodoState } from 'src/shared/types';
 const currentState$ = new ReplaySubject<TodoState>();
 
 self.todoWorker.addEventListener('message', ev => {
