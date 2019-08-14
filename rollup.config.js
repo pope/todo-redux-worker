@@ -20,7 +20,12 @@ function getPlugins(debug) {
         }),
         typescript(),
         !debug && minifyHtml(),
-        !debug && terser(),
+        !debug &&
+            terser({
+                compress: {
+                    passes: 2,
+                },
+            }),
         postcss({
             minify: true,
             namedExports(name) {
