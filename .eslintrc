@@ -1,4 +1,4 @@
-    
+
 {
     "plugins": ["import"],
     "parser": "@typescript-eslint/parser",
@@ -19,8 +19,8 @@
         "sourceType": "module"
     },
     "rules": {
-        "@typescript-eslint/explicit-member-accessibility": ["warning"],
-        "@typescript-eslint/no-parameter-properties": ["warning"],
+        "@typescript-eslint/explicit-member-accessibility": ["warn"],
+        "@typescript-eslint/no-parameter-properties": ["warn"],
         "comma-dangle": ["error", "only-multiline"],
         "quotes": ["error", "single"],
         "semi": ["error", "always"]

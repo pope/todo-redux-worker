@@ -1,5 +1,6 @@
 {
     "compilerOptions": {
+        "allowJs": true,
         "module": "esnext",
         "esModuleInterop": true,
         "allowSyntheticDefaultImports": true,
@@ -20,6 +21,7 @@
         }
     },
     "include": [
-        "src/**/*"
+        "src/**/*",
+        "*"
     ]
 }
