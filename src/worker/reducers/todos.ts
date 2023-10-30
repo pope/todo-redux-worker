@@ -1,4 +1,4 @@
-import { ActionTypes, Todo, TodoActionTypes } from 'src/shared/types';
+import { ActionTypes, Todo, TodoActionTypes } from '../../shared/types';
 
 let id = 0;
 function generateId(): string {
@@ -23,7 +23,7 @@ export function todos(
             ];
 
         case ActionTypes.EDIT_TODO:
-            return state.map(todo => {
+            return state.map((todo) => {
                 if (todo.id !== action.id) {
                     return todo;
                 }
@@ -34,10 +34,10 @@ export function todos(
             });
 
         case ActionTypes.DELETE_TODO:
-            return state.filter(todo => todo.id !== action.id);
+            return state.filter((todo) => todo.id !== action.id);
 
         case ActionTypes.TOGGLE_TODO:
-            return state.map(todo => {
+            return state.map((todo) => {
                 if (todo.id !== action.id) {
                     return todo;
                 }
@@ -48,13 +48,13 @@ export function todos(
             });
 
         case ActionTypes.TOGGLE_ALL_TODOS:
-            if (state.every(todo => todo.completed)) {
-                return state.map(todo => ({
+            if (state.every((todo) => todo.completed)) {
+                return state.map((todo) => ({
                     ...todo,
                     completed: false,
                 }));
             }
-            return state.map(todo => {
+            return state.map((todo) => {
                 if (todo.completed) {
                     return todo;
                 }
@@ -65,7 +65,7 @@ export function todos(
             });
 
         case ActionTypes.TOGGLE_EDITABLE_TODO:
-            return state.map(todo => {
+            return state.map((todo) => {
                 if (todo.id !== action.id) {
                     return todo;
                 }
@@ -76,7 +76,7 @@ export function todos(
             });
 
         case ActionTypes.CLEAR_COMPLETED_TODOS:
-            return state.filter(todo => !todo.completed);
+            return state.filter((todo) => !todo.completed);
 
         default:
             return state;

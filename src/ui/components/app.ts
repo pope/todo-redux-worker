@@ -3,8 +3,8 @@ import {
     addTodo,
     clearCompletedTodos,
     toggleAllTodos,
-} from 'src/shared/actions';
-import { Todo, TodoState, TodoVisiblityFilter } from 'src/shared/types';
+} from '../../shared/actions';
+import { Todo, TodoState, TodoVisiblityFilter } from '../../shared/types';
 import { dispatch } from './events';
 import { todosTemplate } from './todos';
 import { visibilityFilterTemplate } from './visibilityFilter';
@@ -36,9 +36,9 @@ function getFilteredTodos(
         case SHOW_ALL:
             return todos;
         case SHOW_ACTIVE:
-            return todos.filter(t => !t.completed);
+            return todos.filter((t) => !t.completed);
         case SHOW_COMPLETED:
-            return todos.filter(t => t.completed);
+            return todos.filter((t) => t.completed);
     }
 }
 
@@ -47,7 +47,7 @@ export function appTemplate({
     todos,
     visibilityFilter,
 }: TodoState): TemplateResult {
-    const itemsLeftCount = todos.filter(t => !t.completed).length;
+    const itemsLeftCount = todos.filter((t) => !t.completed).length;
     const hasNoCompleted = todos.length - itemsLeftCount === 0;
 
     const mainStyle = todos.length === 0 ? 'display: none' : '';

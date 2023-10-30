@@ -1,9 +1,9 @@
 import { render } from 'lit-html';
 import { concat, fromEvent, Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { setVisibilityFilter } from 'src/shared/actions';
-import { assert } from 'src/shared/asserts';
-import { TodoVisiblityFilter } from 'src/shared/types';
+import { setVisibilityFilter } from '../shared/actions';
+import { assert } from '../shared/asserts';
+import { TodoVisiblityFilter } from '../shared/types';
 import 'todomvc-app-css/index.css';
 import { appTemplate } from './components/app';
 import { ActionEvent } from './components/events';
@@ -37,18 +37,18 @@ class App {
                 this.renderApp();
             },
         });
-        hashChange$.subscribe(hash => {
+        hashChange$.subscribe((hash) => {
             store.dispatch(setVisibilityFilter(hashToFilter(hash)));
         });
 
-        this.appEl.addEventListener('dispatch', ev => {
+        this.appEl.addEventListener('dispatch', (ev) => {
             const actionEvent = ev as ActionEvent;
             store.dispatch(actionEvent.detail);
         });
     }
 
     private renderApp(): void {
-        render(appTemplate(this.store.currentState), this.appEl);
+        render(appTemplate(this.store.currentState), this.appEl as HTMLElement);
     }
 }
 

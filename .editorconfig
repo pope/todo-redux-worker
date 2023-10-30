@@ -9,5 +9,13 @@ insert_final_newline = true
 [*.html]
 indent_size = 2
 
-[package.json]
+[*.json]
+indent_size = 2
+
+[Makefile]
+indent_style = tab
+
+[*.nix]
+indent_size = 2
+[*.lock]
 indent_size = 2

@@ -1,14 +1,14 @@
 import { html, TemplateResult } from 'lit-html';
-import { ClassInfo, classMap } from 'lit-html/directives/class-map';
-import { repeat } from 'lit-html/directives/repeat';
+import { ClassInfo, classMap } from 'lit-html/directives/class-map.js';
+import { repeat } from 'lit-html/directives/repeat.js';
 import {
     deleteTodo,
     editTodo,
     toggleEditableTodo,
     toggleTodo,
-} from 'src/shared/actions';
-import { assert } from 'src/shared/asserts';
-import { Todo } from 'src/shared/types';
+} from '../../shared/actions';
+import { assert } from '../../shared/asserts';
+import { Todo } from '../../shared/types';
 import { dispatch } from './events';
 
 function getIdFromDom(el: HTMLElement): string {
@@ -16,15 +16,15 @@ function getIdFromDom(el: HTMLElement): string {
     return assert(liEl.getAttribute('data-id'));
 }
 
-const editBlurHandler: EventListenerObject &
-    Partial<AddEventListenerOptions> = {
-    handleEvent(ev: Event): void {
-        const target = ev.target as HTMLElement;
-        const id = getIdFromDom(target);
-        dispatch(target, toggleEditableTodo(id));
-    },
-    capture: true,
-};
+const editBlurHandler: EventListenerObject & Partial<AddEventListenerOptions> =
+    {
+        handleEvent(ev: Event): void {
+            const target = ev.target as HTMLElement;
+            const id = getIdFromDom(target);
+            dispatch(target, toggleEditableTodo(id));
+        },
+        capture: true,
+    };
 
 function editKeyUpHandler(this: EventTarget, ev: KeyboardEvent): void {
     const target = ev.target as HTMLInputElement;

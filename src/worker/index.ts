@@ -1,19 +1,29 @@
-import { createStore } from 'redux';
+import { devToolsEnhancer } from '@redux-devtools/remote';
+import { legacy_createStore as createStore } from 'redux';
 import { rootReducer } from './reducers/index';
 
-/* eslint-disable-next-line no-var */
 declare var self: Worker;
 
-// TODO(pope): Conditionally include this.
-importScripts('worker-devtools-1.0.0.js');
+declare module globalThis {
+    var DEBUG: boolean;
+}
 
-const store = createStore(rootReducer, self.composeWithDevTools());
+const store = globalThis.DEBUG
+    ? createStore(
+          rootReducer,
+          devToolsEnhancer({
+              realtime: true,
+              hostname: 'localhost',
+              port: 8000,
+          })
+      )
+    : createStore(rootReducer);
 
 self.postMessage(store.getState());
 store.subscribe(() => {
     self.postMessage(store.getState());
 });
 
-self.addEventListener('message', ev => {
+self.addEventListener('message', (ev) => {
     store.dispatch(ev.data);
 });

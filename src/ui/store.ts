@@ -1,10 +1,10 @@
 import { Action } from 'redux';
 import { Observable, PartialObserver, ReplaySubject, Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
-import { TodoState } from 'src/shared/types';
+import { TodoState } from '../shared/types';
 const currentState$ = new ReplaySubject<TodoState>();
 
-self.todoWorker.addEventListener('message', ev => {
+self.todoWorker.addEventListener('message', (ev) => {
     currentState$.next(ev.data);
 });
 
@@ -31,7 +31,7 @@ class DefaultStore implements Store {
         private readonly worker: Worker
     ) {
         this.subscribe({
-            next: newValue => {
+            next: (newValue) => {
                 this.currentStateInner = newValue;
             },
         });
@@ -52,7 +52,7 @@ class DefaultStore implements Store {
     }
 
     dispose(): void {
-        this.subs.forEach(s => {
+        this.subs.forEach((s) => {
             s.unsubscribe();
         });
         this.subs.length = 0; // Delete the array.
@@ -62,5 +62,5 @@ class DefaultStore implements Store {
 /** Create a new store. */
 export async function createStore(): Promise<Store> {
     const state = await currentState$.pipe(first()).toPromise();
-    return new DefaultStore(state, currentState$, self.todoWorker);
+    return new DefaultStore(state!, currentState$, self.todoWorker);
 }
