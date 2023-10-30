@@ -9,7 +9,7 @@ MAKEFLAGS += --warn-undefined-variables -r
 TS_SOURCES := $(wildcard src/*.ts) $(wildcard src/*/*.ts)
 
 dist/%.js: src/%.ts $(TS_SOURCES) Makefile
-	esbuild --bundle $< --outfile=$@ --define:global=globalThis --define:globalThis.DEBUG=true
+	esbuild --bundle $< --outfile=$@ --define:global=globalThis --define:globalThis.DEBUG=false
 
 dist:
 	mkdir -p dist
