@@ -1,8 +1,9 @@
 {
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
-    nix-formatter-pack = {
-      url = "github:Gerschtli/nix-formatter-pack";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
+    systems.url = "github:nix-systems/default-linux";
+    treefmt-nix = {
+      url = "github:numtide/treefmt-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     gitignore = {
@@ -10,25 +11,33 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
+
   outputs =
     { gitignore
-    , nix-formatter-pack
+    , systems
+    , treefmt-nix
     , nixpkgs
     , ...
     }:
     let
-      supportedSystems = [
-        "x86_64-darwin"
-        "aarch64-darwin"
-        "aarch64-linux"
-        "x86_64-linux"
-      ];
-      forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
+      eachSystem = f: nixpkgs.lib.genAttrs (import systems) (system: f
+        (import nixpkgs {
+          inherit system;
+          config = { };
+        })
+      );
+      treefmtEval = eachSystem (pkgs: treefmt-nix.lib.evalModule pkgs (_: {
+        projectRootFile = "flake.nix";
+        programs = {
+          deadnix.enable = true;
+          nixpkgs-fmt.enable = true;
+          statix.enable = true;
+        };
+      }));
     in
     {
-      packages = forAllSystems (system:
-        let
-          pkgs = import nixpkgs { inherit system; };
+      packages = eachSystem (pkgs:
+        rec {
           todo = pkgs.buildNpmPackage {
             name = "todo";
             srcs = gitignore.lib.gitignoreSource ./.;
@@ -45,39 +54,29 @@
               runHook postInstall
             '';
           };
-        in
-        {
-          inherit todo;
+
           default = todo;
         });
-      devShells = forAllSystems (system:
-        let
-          pkgs = import nixpkgs { inherit system; };
-        in
-        with pkgs;
-        {
-          default = mkShell {
-            buildInputs = [
-              esbuild
-              gnumake
-              nodePackages.prettier
-              nodejs
-              prefetch-npm-deps
-              prettierd
-              typescript
-            ];
-          };
-        });
 
-      formatter = forAllSystems (system:
-        nix-formatter-pack.lib.mkFormatter {
-          pkgs = nixpkgs.legacyPackages.${system};
-          config.tools = {
-            deadnix.enable = false;
-            nixpkgs-fmt.enable = true;
-            statix.enable = true;
-          };
-        }
-      );
+      devShells = eachSystem (pkgs: {
+        default = pkgs.mkShell {
+          buildInputs = with pkgs;[
+            esbuild
+            gnumake
+            nodePackages.prettier
+            nodejs
+            prefetch-npm-deps
+            prettierd
+            treefmtEval.${system}.config.build.wrapper
+            typescript
+          ];
+        };
+      });
+
+      formatter = eachSystem (pkgs: treefmtEval.${pkgs.system}.config.build.wrapper);
+
+      checks = eachSystem (pkgs: {
+        formatting = treefmtEval.${pkgs.system}.config.build.wrapper;
+      });
     };
 }
