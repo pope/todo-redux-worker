@@ -32,4 +32,4 @@ dev:
 	esbuild --bundle src/ui/index.ts src/worker/index.ts \
 		--outdir=dist --servedir=dist --serve=:8080 --watch \
 		--define:global=globalThis \
-		--define:global=globalThis.DEBUG=true
+		--define:globalThis.DEBUG=true
