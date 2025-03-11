@@ -41,7 +41,7 @@
           todo = pkgs.buildNpmPackage {
             name = "todo";
             srcs = gitignore.lib.gitignoreSource ./.;
-            npmDepsHash = "sha256-rjMzLW3Wlsh5FV2z0ClJxiNpqOcR1D/CwG0MiQYh/j8=";
+            npmDepsHash = "sha256-i/S6ZD8+vPR2+9HFwOMjUZKEmkPSLfkM9KHB+vJ0wNk=";
             nativeBuildInputs = with pkgs; [
               esbuild
               gnumake
