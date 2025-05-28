@@ -1,6 +1,6 @@
 {
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05-small";
     systems.url = "github:nix-systems/default-linux";
     treefmt-nix = {
       url = "github:numtide/treefmt-nix";
@@ -41,7 +41,7 @@
           todo = pkgs.buildNpmPackage {
             name = "todo";
             srcs = gitignore.lib.gitignoreSource ./.;
-            npmDepsHash = "sha256-cst0I6/8U8zYETrXAvnZokHqGozvAQUJeVuj4J8D368=";
+            npmDepsHash = "sha256-9U9w4mPw9sZYchEBymfEvFqLwUhOptgAYA8PIzNCLHE=";
             nativeBuildInputs = with pkgs; [
               esbuild
               gnumake
@@ -64,7 +64,8 @@
             esbuild
             gnumake
             nodePackages.prettier
-            nodejs
+            nodejs_latest
+            npm-check
             prefetch-npm-deps
             prettierd
             treefmtEval.${system}.config.build.wrapper

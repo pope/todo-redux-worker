@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "@redux-devtools/remote": "^0.9.3",
-    "lit-html": "^3.2.0",
+    "lit-html": "^3.3.0",
     "redux": "^5.0.1",
     "redux-observable": "^3.0.0-rc.2",
     "rxjs": "^7.8.1",
