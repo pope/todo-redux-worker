@@ -4,7 +4,7 @@
   "module": "src/ui/index.ts",
   "type": "module",
   "peerDependencies": {
-    "typescript": "^5.2.0"
+    "typescript": "^5.8.0"
   },
   "dependencies": {
     "@redux-devtools/remote": "^0.9.3",

@@ -13,54 +13,62 @@
   };
 
   outputs =
-    { gitignore
-    , systems
-    , treefmt-nix
-    , nixpkgs
-    , ...
+    {
+      gitignore,
+      systems,
+      treefmt-nix,
+      nixpkgs,
+      ...
     }:
     let
-      eachSystem = f: nixpkgs.lib.genAttrs (import systems) (system: f
-        (import nixpkgs {
-          inherit system;
-          config = { };
+      eachSystem =
+        f:
+        nixpkgs.lib.genAttrs (import systems) (
+          system:
+          f (
+            import nixpkgs {
+              inherit system;
+              config = { };
+            }
+          )
+        );
+      treefmtEval = eachSystem (
+        pkgs:
+        treefmt-nix.lib.evalModule pkgs (_: {
+          projectRootFile = "flake.nix";
+          programs = {
+            deadnix.enable = true;
+            nixfmt.enable = true;
+            statix.enable = true;
+          };
         })
       );
-      treefmtEval = eachSystem (pkgs: treefmt-nix.lib.evalModule pkgs (_: {
-        projectRootFile = "flake.nix";
-        programs = {
-          deadnix.enable = true;
-          nixpkgs-fmt.enable = true;
-          statix.enable = true;
-        };
-      }));
     in
     {
-      packages = eachSystem (pkgs:
-        rec {
-          todo = pkgs.buildNpmPackage {
-            name = "todo";
-            srcs = gitignore.lib.gitignoreSource ./.;
-            npmDepsHash = "sha256-9U9w4mPw9sZYchEBymfEvFqLwUhOptgAYA8PIzNCLHE=";
-            nativeBuildInputs = with pkgs; [
-              esbuild
-              gnumake
-              typescript
-            ];
-            installPhase = ''
-              runHook preInstall
-              mkdir -p $out
-              cp -r dist $out/todo
-              runHook postInstall
-            '';
-          };
+      packages = eachSystem (pkgs: rec {
+        todo = pkgs.buildNpmPackage {
+          name = "todo";
+          srcs = gitignore.lib.gitignoreSource ./.;
+          npmDepsHash = "sha256-8bQSqKI+ZTAIheYvlZwyLLiLJPFZlZXu4QyqcOO6Hm8=";
+          nativeBuildInputs = with pkgs; [
+            esbuild
+            gnumake
+            typescript
+          ];
+          installPhase = ''
+            runHook preInstall
+            mkdir -p $out
+            cp -r dist $out/todo
+            runHook postInstall
+          '';
+        };
 
-          default = todo;
-        });
+        default = todo;
+      });
 
       devShells = eachSystem (pkgs: {
         default = pkgs.mkShell {
-          buildInputs = with pkgs;[
+          buildInputs = with pkgs; [
             esbuild
             gnumake
             nodePackages.prettier
@@ -68,16 +76,16 @@
             npm-check
             prefetch-npm-deps
             prettierd
-            treefmtEval.${system}.config.build.wrapper
+            treefmtEval.${stdenv.hostPlatform.system}.config.build.wrapper
             typescript
           ];
         };
       });
 
-      formatter = eachSystem (pkgs: treefmtEval.${pkgs.system}.config.build.wrapper);
+      formatter = eachSystem (pkgs: treefmtEval.${pkgs.stdenv.hostPlatform.system}.config.build.wrapper);
 
       checks = eachSystem (pkgs: {
-        formatting = treefmtEval.${pkgs.system}.config.build.wrapper;
+        formatting = treefmtEval.${pkgs.stdenv.hostPlatform.system}.config.build.wrapper;
       });
     };
 }
