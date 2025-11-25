@@ -15,9 +15,10 @@
   outputs =
     {
       gitignore,
+      nixpkgs,
+      self,
       systems,
       treefmt-nix,
-      nixpkgs,
       ...
     }:
     let
@@ -50,7 +51,7 @@
         todo = pkgs.buildNpmPackage {
           name = "todo";
           srcs = gitignore.lib.gitignoreSource ./.;
-          npmDepsHash = "sha256-8bQSqKI+ZTAIheYvlZwyLLiLJPFZlZXu4QyqcOO6Hm8=";
+          npmDepsHash = "sha256-EmrolIL8voNiCieKR84mllFd03Okyz+vngBfP4hT9fM=";
           nativeBuildInputs = with pkgs; [
             esbuild
             gnumake
@@ -70,16 +71,13 @@
       devShells = eachSystem (pkgs: {
         default = pkgs.mkShell {
           buildInputs = with pkgs; [
-            esbuild
-            gnumake
             nodePackages.typescript-language-server
-            nodejs_latest
             npm-check
             prefetch-npm-deps
-            prettierd
             treefmtEval.${stdenv.hostPlatform.system}.config.build.wrapper
-            typescript
           ];
+
+          inputsFrom = [ self.packages.${pkgs.stdenv.hostPlatform.system}.todo ];
         };
       });
 
