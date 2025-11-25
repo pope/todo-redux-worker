@@ -39,6 +39,7 @@
           programs = {
             deadnix.enable = true;
             nixfmt.enable = true;
+            prettier.enable = true;
             statix.enable = true;
           };
         })
@@ -71,7 +72,7 @@
           buildInputs = with pkgs; [
             esbuild
             gnumake
-            nodePackages.prettier
+            nodePackages.typescript-language-server
             nodejs_latest
             npm-check
             prefetch-npm-deps
